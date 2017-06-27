@@ -17,7 +17,6 @@
 			var button = $("<button>");
 				button.addClass("animal-button button btn btn-default");
 				button.attr("data-animal", animals[i]);
-				button.attr("data-state", "still");
 				button.attr("type", "button");
 				button.text(animals[i]);
 
@@ -73,8 +72,10 @@
     			// STORING & DISPLAYING ANIMAL GIF
     				var animalImage = $("<img class='img-circle'>");	
     				animalImage.addClass("gif col-md-4");
+    				animalImage.attr("data-state", "still");
     				animalImage.attr("src", apiResults[i].images.original_still.url);
-    				animalImage.attr("data-animated", apiResults[i].images.fixed_height.url);
+    				animalImage.attr("paused", apiResults[i].images.original_still.url);
+    				animalImage.attr("gif-animated", apiResults[i].images.fixed_height.url);
     				
     				
     				animalDiv.append(rating);
@@ -94,28 +95,24 @@
 	$(document).on("click", ".gif", function() {
 
 		var state = $(this).attr("data-state");
-		var still = $(this).attr("src");
-		var live = $(this).attr("data-animated")
+		var still = $(this).attr("paused");
+		var live = $(this).attr("gif-animated")
 		
 		console.log(live);
 		console.log(still);
-		debugger;
+		
 
 		if (state === "still") {
-			// $(this).attr("src", apiResults[i].images.fixed_height.url);
 			$(this).attr("src", live);
 			$(this).attr("data-state", "live");
 		}
 
 		else {
-			// $(this).attr("src", $(this).attr(apiResults[i].images.original_still.url));
 			$(this).attr("src", still);
 			$(this).attr("data-state", "still");
 		}
 	
 	});// on click close
-
-
 
 
 
